@@ -43,6 +43,13 @@ class CartFactory:
             weight=product.weight
         )
     
+    def sync_cart_item_with_product(self, cart_item: CartItem, product: Product):
+        """Sync the cart item with the product"""
+        cart_item.unit_price = product.get_discounted_price()
+        cart_item.product_name = product.name
+        cart_item.product_image = product.image
+        cart_item.weight = product.weight
+    
     @staticmethod
     def create_cart_from_dict(data: dict) -> Cart:
         """Create Cart from dictionary"""

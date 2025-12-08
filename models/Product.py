@@ -2,6 +2,7 @@
 Product Entity - Represents a product in the store
 """
 
+from typing import List
 
 class Category:
     """Category Entity - Represents a product category"""
@@ -20,7 +21,7 @@ class Category:
 class Product:
     def __init__(self, product_id: str, name: str, image: str, category_id: str, 
                  price: float, discount: float, weight: str, description: str = "", 
-                 stock: int = 0, max_quantity: int = 10):
+                 stock: int = 0, max_quantity: int = 10, images: List[str] = []):
         self.product_id = product_id
         self.name = name
         self.image = image
@@ -31,6 +32,7 @@ class Product:
         self.description = description
         self.stock = stock
         self.max_quantity = max_quantity
+        self.images = images
     
     def get_discounted_price(self) -> float:
         """Calculate and return the discounted price"""

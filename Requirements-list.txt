@@ -12,12 +12,18 @@
 14. User should be able to apply promo codes to the cart
 15. User should be able to remove promo codes from the cart
 16. Offer section 
-17. Sub - categories 
+17. Wishlist section
 18. Product may belong to multiple categories and sub - categories 
 19. Product may have a discount or promotion
 20. Product stock should be managed
 21. Promo codes manageable - expiry, conditions, discounts, etc.
 22. Cart persistent across page refreshes
 23. Older orders should be visible and searchable
-24. (Hard) Inventory should be based on location
-25. (Hard) Real - time inventory updates
+24. Ads for products - image, link, etc.
+25. Product images should be displayed
+26. Product ratings should be displayed
+
+not covered in this list:
+1. Inventory should be based on location - hard
+2. Real - time inventory updates - hard
+17. Sub - categories 

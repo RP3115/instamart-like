@@ -3,13 +3,14 @@ ProductFactory - Factory class for creating Product instances
 """
 
 from models.Product import Product
+from typing import List
 
 
 class ProductFactory:
     @staticmethod
     def create_product(product_id: str, name: str, image: str, category_id: str,
                       price: float, discount: float = 0.0, weight: str = "",
-                      description: str = "", stock: int = 0, max_quantity: int = 10) -> Product:
+                      description: str = "", stock: int = 0, max_quantity: int = 10, images: List[str] = []) -> Product:
         """Create a new Product instance"""
         return Product(
             product_id=product_id,
@@ -21,7 +22,8 @@ class ProductFactory:
             weight=weight,
             description=description,
             stock=stock,
-            max_quantity=max_quantity
+            max_quantity=max_quantity,
+            images=images
         )
     
     @staticmethod
@@ -37,6 +39,7 @@ class ProductFactory:
             weight=data.get("weight", ""),
             description=data.get("description", ""),
             stock=data.get("stock", 0),
-            max_quantity=data.get("max_quantity", 10)
+            max_quantity=data.get("max_quantity", 10),
+            images=data.get("images", [])
         )
 

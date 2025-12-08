@@ -104,4 +104,10 @@ class CartService:
     def is_cart_empty(self) -> bool:
         """Check if cart is empty"""
         return len(self.cart.items) == 0
-
+    
+    def refresh_cart_items(self):
+        """Refresh cart items with current product prices"""
+        for product_id, cart_item in self.cart.items.items():
+            product = self.product_service.get_product_by_id(product_id)
+            if product:
+                CartFactory.sync_cart_item_with_product(cart_item, product)

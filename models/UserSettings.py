@@ -34,13 +34,15 @@ class Location:
 
 class UserSettings:
     def __init__(self, user_id: str = "", name: str = "", email: str = "", 
-                 phone: str = "", payment_method: str = "", locations: List[Location] = None):
+                 phone: str = "", payment_method: str = "", locations: List[Location] = None,
+                 wishlist: List[str] = None):
         self.user_id = user_id
         self.name = name
         self.email = email
         self.phone = phone
         self.payment_method = payment_method
         self.locations: List[Location] = locations or []
+        self.wishlist: List[str] = wishlist or []  # List of product_ids
     
     def update_name(self, name: str):
         """Update user name"""
@@ -98,4 +100,28 @@ class UserSettings:
             if loc.location_id == location_id:
                 return loc
         return None
+    
+    def add_to_wishlist(self, product_id: str):
+        """Add product to wishlist"""
+        if product_id not in self.wishlist:
+            self.wishlist.append(product_id)
+    
+    def remove_from_wishlist(self, product_id: str) -> bool:
+        """Remove product from wishlist"""
+        if product_id in self.wishlist:
+            self.wishlist.remove(product_id)
+            return True
+        return False
+    
+    def is_in_wishlist(self, product_id: str) -> bool:
+        """Check if product is in wishlist"""
+        return product_id in self.wishlist
+    
+    def get_wishlist(self) -> List[str]:
+        """Get all wishlist product IDs"""
+        return self.wishlist.copy()
+    
+    def clear_wishlist(self):
+        """Clear entire wishlist"""
+        self.wishlist.clear()
 
