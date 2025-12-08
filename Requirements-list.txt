@@ -1,0 +1,23 @@
+1. User should be able to add Locations
+2. User should be able to select a Location
+3. User should be able to see previously ordered items
+4. User should be able to search products
+5. User should be able to sort products by price, discount, popularity
+6. should be able to filter products by category
+7. User should be able to add products to cart conviniently
+8. User should be able to remove products from cart
+9. User should be able to update the quantity of products in cart
+10. User should be able to see the total price of the cart
+11. User should be able to see the total delivery charges of the cart
+14. User should be able to apply promo codes to the cart
+15. User should be able to remove promo codes from the cart
+16. Offer section 
+17. Sub - categories 
+18. Product may belong to multiple categories and sub - categories 
+19. Product may have a discount or promotion
+20. Product stock should be managed
+21. Promo codes manageable - expiry, conditions, discounts, etc.
+22. Cart persistent across page refreshes
+23. Older orders should be visible and searchable
+24. (Hard) Inventory should be based on location
+25. (Hard) Real - time inventory updates
