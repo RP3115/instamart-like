@@ -1,7 +1,3 @@
-"""
-ProductFactory - Factory class for creating Product instances
-"""
-
 from models.Product import Product
 from typing import List
 
@@ -10,8 +6,8 @@ class ProductFactory:
     @staticmethod
     def create_product(product_id: str, name: str, image: str, category_id: str,
                       price: float, discount: float = 0.0, weight: str = "",
-                      description: str = "", stock: int = 0, max_quantity: int = 10, images: List[str] = []) -> Product:
-        """Create a new Product instance"""
+                      description: str = "", stock: int = 0, max_quantity: int = 10, 
+                      images: List[str] = []) -> Product:
         return Product(
             product_id=product_id,
             name=name,
@@ -28,7 +24,6 @@ class ProductFactory:
     
     @staticmethod
     def create_from_dict(data: dict) -> Product:
-        """Create Product from dictionary"""
         return Product(
             product_id=data.get("product_id", ""),
             name=data.get("name", ""),
@@ -42,4 +37,3 @@ class ProductFactory:
             max_quantity=data.get("max_quantity", 10),
             images=data.get("images", [])
         )
-

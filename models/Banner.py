@@ -1,8 +1,3 @@
-"""
-Banner Entity - Represents promotional banners/offers
-"""
-
-
 class Banner:
     def __init__(self, banner_id: str, image_url: str, title: str = "", 
                  description: str = "", link_url: str = "", is_active: bool = True):
@@ -14,6 +9,4 @@ class Banner:
         self.is_active = is_active
     
     def is_valid(self) -> bool:
-        """Check if banner is active"""
         return self.is_active
-

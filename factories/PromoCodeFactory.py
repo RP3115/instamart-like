@@ -1,7 +1,3 @@
-"""
-PromoCodeFactory - Factory class for creating PromoCode instances
-"""
-
 from datetime import datetime
 from models.PromoCode import PromoCode
 
@@ -12,7 +8,6 @@ class PromoCodeFactory:
                          min_order_value: float = 0.0, max_discount: float = 0.0,
                          valid_from: datetime = None, valid_until: datetime = None,
                          is_active: bool = True) -> PromoCode:
-        """Create a new PromoCode instance"""
         return PromoCode(
             code=code,
             discount_type=discount_type,
@@ -26,14 +21,8 @@ class PromoCodeFactory:
     
     @staticmethod
     def create_from_dict(data: dict) -> PromoCode:
-        """Create PromoCode from dictionary"""
-        valid_from = None
-        valid_until = None
-        
-        if data.get("valid_from"):
-            valid_from = datetime.fromisoformat(data["valid_from"])
-        if data.get("valid_until"):
-            valid_until = datetime.fromisoformat(data["valid_until"])
+        valid_from = datetime.fromisoformat(data["valid_from"]) if data.get("valid_from") else None
+        valid_until = datetime.fromisoformat(data["valid_until"]) if data.get("valid_until") else None
         
         return PromoCode(
             code=data.get("code", ""),
@@ -45,4 +34,3 @@ class PromoCodeFactory:
             valid_until=valid_until,
             is_active=data.get("is_active", True)
         )
-

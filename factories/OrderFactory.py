@@ -1,7 +1,3 @@
-"""
-OrderFactory - Factory class for creating Order and OrderItem instances
-"""
-
 from datetime import datetime
 from models.Order import Order, OrderItem
 from models.Cart import Cart, CartItem
@@ -13,8 +9,7 @@ class OrderFactory:
                     status: str = "pending", total_amount: float = 0.0,
                     delivery_address: str = "", payment_method: str = "",
                     order_items: list = None) -> Order:
-        """Create a new Order instance"""
-        order = Order(
+        return Order(
             order_id=order_id,
             user_id=user_id,
             order_date=order_date,
@@ -24,16 +19,14 @@ class OrderFactory:
             payment_method=payment_method,
             order_items=order_items or []
         )
-        return order
     
     @staticmethod
     def create_order_item_from_cart_item(cart_item: CartItem, order_id: str) -> OrderItem:
-        """Create OrderItem from CartItem (preserves snapshot price)"""
         return OrderItem(
             order_id=order_id,
             product_id=cart_item.product_id,
             quantity=cart_item.quantity,
-            unit_price=cart_item.unit_price,  # Preserve the snapshot price
+            unit_price=cart_item.unit_price,
             product_name=cart_item.product_name,
             product_image=cart_item.product_image,
             weight=cart_item.weight
@@ -43,18 +36,14 @@ class OrderFactory:
     def create_order_from_cart(cart: Cart, user_id: str, order_id: str,
                                delivery_address: str, payment_method: str = "",
                                status: str = "pending") -> Order:
-        """Create Order from Cart (converts CartItems to OrderItems)"""
-        # Convert all CartItems to OrderItems
-        order_items = []
-        for cart_item in cart.get_items_list():
-            order_item = OrderFactory.create_order_item_from_cart_item(cart_item, order_id)
-            order_items.append(order_item)
+        order_items = [
+            OrderFactory.create_order_item_from_cart_item(cart_item, order_id)
+            for cart_item in cart.get_items_list()
+        ]
         
-        # Calculate totals
         subtotal = cart.get_subtotal()
         total_amount = cart.get_total()
         
-        # Create order
         order = Order(
             order_id=order_id,
             user_id=user_id,
@@ -66,7 +55,6 @@ class OrderFactory:
             order_items=order_items
         )
         
-        # Set order details from cart
         order.subtotal = subtotal
         order.delivery_charges = cart.delivery_charges
         order.discount_amount = cart.discount_amount
@@ -76,18 +64,12 @@ class OrderFactory:
     
     @staticmethod
     def create_from_dict(data: dict) -> Order:
-        """Create Order from dictionary"""
         order_date = None
         if data.get("order_date"):
-            if isinstance(data["order_date"], str):
-                order_date = datetime.fromisoformat(data["order_date"])
-            else:
-                order_date = data["order_date"]
+            order_date = datetime.fromisoformat(data["order_date"]) if isinstance(data["order_date"], str) else data["order_date"]
         
-        order_items = []
-        items_data = data.get("order_items", [])
-        for item_data in items_data:
-            order_item = OrderItem(
+        order_items = [
+            OrderItem(
                 order_id=data.get("order_id", ""),
                 product_id=item_data.get("product_id", ""),
                 quantity=item_data.get("quantity", 0),
@@ -96,7 +78,8 @@ class OrderFactory:
                 product_image=item_data.get("product_image", ""),
                 weight=item_data.get("weight", "")
             )
-            order_items.append(order_item)
+            for item_data in data.get("order_items", [])
+        ]
         
         order = Order(
             order_id=data.get("order_id", ""),
@@ -115,4 +98,3 @@ class OrderFactory:
         order.applied_promo_code = data.get("applied_promo_code", "")
         
         return order
-

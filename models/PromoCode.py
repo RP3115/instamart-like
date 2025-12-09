@@ -1,7 +1,3 @@
-"""
-PromoCode Entity - Represents a promotional code or coupon
-"""
-
 from datetime import datetime
 
 
@@ -11,7 +7,7 @@ class PromoCode:
                  valid_from: datetime = None, valid_until: datetime = None,
                  is_active: bool = True):
         self.code = code
-        self.discount_type = discount_type  # "percentage" or "fixed"
+        self.discount_type = discount_type
         self.discount_value = discount_value
         self.min_order_value = min_order_value
         self.max_discount = max_discount
@@ -20,7 +16,6 @@ class PromoCode:
         self.is_active = is_active
     
     def is_valid(self, order_value: float, current_date: datetime = None) -> bool:
-        """Check if promo code is valid for the given order value"""
         if not self.is_active:
             return False
         
@@ -39,7 +34,6 @@ class PromoCode:
         return True
     
     def calculate_discount(self, order_value: float) -> float:
-        """Calculate discount amount for given order value"""
         if not self.is_valid(order_value):
             return 0.0
         
@@ -52,4 +46,3 @@ class PromoCode:
             return min(self.discount_value, order_value)
         
         return 0.0
-
