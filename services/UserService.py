@@ -178,8 +178,6 @@ class UserService:
         """Clear wishlist"""
         self.user_settings.clear_wishlist()
     
-    # ==================== USER SETTINGS OPERATIONS ====================
-    
     def get_user_settings(self) -> UserSettings:
         """Get user settings"""
         return self.user_settings

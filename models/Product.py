@@ -51,4 +51,15 @@ class Product:
     def is_valid_quantity(self, quantity: int) -> bool:
         """Check if requested quantity is valid"""
         return 0 < quantity <= min(self.stock, self.max_quantity)
+    
+    def get_product_details(self) -> dict:
+        """Get product details"""
+        return {
+            "product_id": self.product_id,
+            "name": self.name,
+            "image": self.image,
+            "category_id": self.category_id,
+            "price": self.price,
+            "discount": self.discount,
+        }
 
