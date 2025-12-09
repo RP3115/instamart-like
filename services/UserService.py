@@ -54,11 +54,13 @@ class UserService:
         return True
     
     def get_order_stats(self) -> dict:
+        pending = self.order_service.get_order_by_status(self.user_id, "pending")
+        delivered = self.order_service.get_order_by_status(self.user_id, "delivered")
         return {
             "total_orders": self.order_service.get_total_orders_count(self.user_id),
             "total_spent": self.order_service.get_total_spent(self.user_id),
-            "pending_orders": len(self.get_orders_by_status("pending")),
-            "delivered_orders": len(self.get_orders_by_status("delivered"))
+            "pending_orders": len(pending),
+            "delivered_orders": len(delivered)
         }
     
     def add_to_wishlist(self, product_id: str) -> bool:

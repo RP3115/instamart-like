@@ -19,7 +19,7 @@ class Product:
         self.product_id = product_id
         self.name = name
         self.image = image
-        self.categories = {}
+        self.categories = {}  # Add category : sub category mapping or something better ? 
         self.price = price
         self.discount = discount
         self.weight = weight
