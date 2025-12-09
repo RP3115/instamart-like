@@ -44,4 +44,12 @@ class Profile:
     
     def update_payment_method(self, payment_method: str):
         self.payment_method = payment_method
-
+    
+    def get_profile(self) -> dict:
+        return {
+            "user_id": self.user_id,
+            "name": self.name,
+            "email": self.email,
+            "phone": self.phone,
+            "payment_method": self.payment_method
+        }
