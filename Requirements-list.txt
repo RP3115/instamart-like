@@ -21,9 +21,11 @@
 23. Older orders should be visible and searchable
 24. Ads for products - image, link, etc.
 25. Product images should be displayed
-26. Product ratings should be displayed
 
 not covered in this list:
 1. Inventory should be based on location - hard
 2. Real - time inventory updates - hard
 17. Sub - categories 
+26. Product ratings should be displayed
+5. Product reviews 
+6. Comples promocode conditions - hard
