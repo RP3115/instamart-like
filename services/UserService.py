@@ -1,9 +1,6 @@
-"""
-UserService - Business logic for user operations (order history, cart, wishlist)
-"""
-
 from typing import List, Optional
-from models.UserSettings import UserSettings, Location
+from models.Profile import Profile, Location
+from models.UserSettings import UserSettings
 from models.Cart import Cart, CartItem
 from models.Order import Order
 from models.Product import Product
@@ -13,10 +10,11 @@ from services.ProductService import ProductService
 
 
 class UserService:
-    def __init__(self, user_id: str, user_settings: UserSettings = None,
+    def __init__(self, user_id: str, profile: Profile = None, user_settings: UserSettings = None,
                  cart_service: CartService = None, order_service: OrderService = None,
                  product_service: ProductService = None):
         self.user_id = user_id
+        self.profile = profile or Profile(user_id=user_id)
         self.user_settings = user_settings or UserSettings(user_id=user_id)
         self.cart_service = cart_service or CartService()
         self.order_service = order_service or OrderService()
@@ -64,7 +62,6 @@ class UserService:
     def get_quick_reorder_items(self) -> List[CartItem]:
         """Get items from most recent order for quick reorder"""
         order_items = self.order_service.get_quick_reorder_items(self.user_id)
-        # Convert OrderItems to CartItems (for adding to cart)
         cart_items = []
         for order_item in order_items:
             product = self.product_service.get_product_by_id(order_item.product_id)
@@ -178,21 +175,23 @@ class UserService:
         """Clear wishlist"""
         self.user_settings.clear_wishlist()
     
+    def get_profile(self) -> Profile:
+        return self.profile
+    
     def get_user_settings(self) -> UserSettings:
-        """Get user settings"""
         return self.user_settings
     
     def update_name(self, name: str):
-        """Update user name"""
-        self.user_settings.update_name(name)
+        self.profile.update_name(name)
     
     def update_email(self, email: str):
-        """Update user email"""
-        self.user_settings.update_email(email)
+        self.profile.update_email(email)
     
     def update_phone(self, phone: str):
-        """Update user phone"""
-        self.user_settings.update_phone(phone)
+        self.profile.update_phone(phone)
+    
+    def update_payment_method(self, payment_method: str):
+        self.profile.update_payment_method(payment_method)
     
     def add_location(self, location: Location):
         """Add location"""
